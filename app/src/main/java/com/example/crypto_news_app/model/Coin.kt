@@ -1,4 +1,9 @@
 package com.example.crypto_news_app.model
 
-class Coin {
+data class Coin (
+
+    val coinName: String?,
+    val price:String?,
+
+    ) {
 }
