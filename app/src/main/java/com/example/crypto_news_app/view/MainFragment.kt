@@ -47,7 +47,15 @@ class MainFragment : Fragment() {
         viewmodel=ViewModelProviders.of(this).get(CoinListVM::class.java)
         viewmodel.refreshData()
 
-        recyclerview.layoutManager=GridLayoutManager(context, 3)
+
+
+        recyclerview.layoutManager= object :GridLayoutManager(context,3){
+            override fun canScrollVertically(): Boolean {
+                return false
+            } }
+//        recyclerview.setNestedScrollingEnabled(false);
+//        recyclerview.setHasFixedSize(true)
+        recyclerview
         recyclerview.adapter= Coin_adapter
         observeLiveData()
     }

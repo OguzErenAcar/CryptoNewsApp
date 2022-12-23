@@ -9,7 +9,7 @@ class Coin_infoVM: ViewModel() {
     val CoinLiveData=MutableLiveData<Coin>()
 
     fun roomVerisiniAl(){
-        val btc = Coin("btc","17000")
+        val btc = Coin("btc","17000","asd")
         CoinLiveData.value=btc
 
 

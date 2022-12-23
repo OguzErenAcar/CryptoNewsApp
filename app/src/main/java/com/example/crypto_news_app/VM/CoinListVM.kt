@@ -1,10 +1,9 @@
 package com.example.crypto_news_app.VM
 
-import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.crypto_news_app.model.Coin
+import com.example.crypto_news_app.model.ApiData
 import com.example.crypto_news_app.services.CoinAPIService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -34,22 +33,24 @@ class CoinListVM:ViewModel() {
     }
 
     private fun verileriInternettenAl() {
+        System.out.println("adads")
+
+      //System.out.println(CoinApiServis.getData())
 
         disposable.add(
             CoinApiServis.getData()
                 .subscribeOn(Schedulers.newThread())//yeni threadde işlemler asenkron ve kullanıcı beklemesin programı diye
                 .observeOn(AndroidSchedulers.mainThread())//mainde gözlemler
-                .subscribeWith(object : DisposableSingleObserver<List<Coin>>() {
-                    override fun onSuccess(t: List<Coin>) {
+                .subscribeWith(object : DisposableSingleObserver<ApiData>(){
+                    override fun onSuccess(t: ApiData) {
+                        System.out.println("------77777777-----")
+                        Coinler.value=t.toCoinList()
                         //basarılı
-                        Coinler.value=t
                    //     Toast.makeText(getApplication(),"Besinleri internet'ten Aldık" , Toast.LENGTH_LONG).show()
-
-
                     }
-
                     override fun onError(e: Throwable) {
-                        e.printStackTrace()
+                        System.out.println("------hata-----")
+                        System.out.println( e.printStackTrace().toString())
                     }
 
                 })

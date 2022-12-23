@@ -12,6 +12,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crypto_news_app.R
 import com.example.crypto_news_app.model.Coin
+import com.example.crypto_news_app.util.gorselIndir
+import com.example.crypto_news_app.util.placeholderYap
 import com.example.crypto_news_app.view.MainFragmentDirections
 import kotlinx.android.synthetic.main.coin_item.view.*
 
@@ -25,6 +27,9 @@ internal class CoinGridAdapter(
     // variables for course list and context
     private val CoinModelList: ArrayList<Coin>
 ):RecyclerView.Adapter<CoinGridAdapter.CoinViewHolder>()  {
+    //burası alttakilerden oluşan array
+
+    //burası ve 3 fonk bir nesne için işlemler
     class CoinViewHolder(var itemView:View):RecyclerView.ViewHolder(itemView) {
 
     }
@@ -38,6 +43,9 @@ internal class CoinGridAdapter(
     //her item için geçerli işlemlerin yapıldığı yer
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         holder.itemView.CoinName_tv.text=CoinModelList.get(position).coinName
+        holder.itemView.imageView.gorselIndir(CoinModelList.get(position).iconUrl,
+            placeholderYap(holder.itemView.context))
+
         holder.itemView.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToCoinInfoFragment(0)
             Navigation.findNavController(it).navigate(action)
