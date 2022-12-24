@@ -47,7 +47,7 @@ internal class CoinGridAdapter(
             placeholderYap(holder.itemView.context))
 
         holder.itemView.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToCoinInfoFragment(0)
+            val action = MainFragmentDirections.actionMainFragmentToCoinInfoFragment(CoinModelList.get(position).uuid)
             Navigation.findNavController(it).navigate(action)
         }
     }

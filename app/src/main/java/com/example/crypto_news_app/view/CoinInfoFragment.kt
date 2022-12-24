@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.crypto_news_app.R
 import com.example.crypto_news_app.VM.Coin_infoVM
+import com.example.crypto_news_app.util.gorselIndir
+import com.example.crypto_news_app.util.placeholderYap
 import kotlinx.android.synthetic.main.fragment_coin_info.*
 
 class CoinInfoFragment : Fragment() {
@@ -29,10 +31,6 @@ class CoinInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-
-
-
         return inflater.inflate(R.layout.fragment_coin_info, container, false)
 
     }
@@ -40,15 +38,15 @@ class CoinInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel=ViewModelProviders.of(this).get(Coin_infoVM::class.java)
-        viewModel.roomVerisiniAl()
 
         arguments?.let{
             id_ =CoinInfoFragmentArgs.fromBundle(it).coinIdArguman
-            System.out.println(id_)
-            Toast.makeText(context , id_.toString(), Toast.LENGTH_SHORT).show()
 
         }
+        viewModel=ViewModelProviders.of(this).get(Coin_infoVM::class.java)
+        viewModel.roomVerisiniAl(id_)
+
+
         observeLiveData()
 
     }
@@ -59,6 +57,9 @@ class CoinInfoFragment : Fragment() {
             Coin?.let{
                 CoinName.text=Coin.coinName
                 Price.text=Coin.price
+                context?.let {
+                    coin_IV.gorselIndir(Coin.iconUrl, placeholderYap(it))
+                }
             }
         })
 
