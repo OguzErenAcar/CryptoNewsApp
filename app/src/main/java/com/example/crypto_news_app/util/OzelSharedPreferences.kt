@@ -6,6 +6,8 @@ import android.preference.PreferenceManager
 import androidx.core.content.edit
 import java.util.prefs.Preferences
 
+//sharepref kucuk verileri uygula üzerinde tutmaya
+//ve bunu kolay paylaşmaya yarar
 class OzelSharedPreferences {
 
 

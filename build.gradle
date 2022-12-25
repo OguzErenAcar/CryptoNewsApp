@@ -10,6 +10,7 @@ buildscript {
     repositories {
         google()  // Google's Maven repository
         mavenCentral()  // Maven Central repository
+
     }
 
     dependencies {
@@ -20,10 +21,11 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
-
 }
+
 plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
 }
+

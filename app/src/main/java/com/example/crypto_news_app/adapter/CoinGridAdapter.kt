@@ -8,14 +8,17 @@ import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crypto_news_app.R
 import com.example.crypto_news_app.model.Coin
 import com.example.crypto_news_app.util.gorselIndir
 import com.example.crypto_news_app.util.placeholderYap
+import com.example.crypto_news_app.view.MainFragment
 import com.example.crypto_news_app.view.MainFragmentDirections
 import kotlinx.android.synthetic.main.coin_item.view.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 // on below line we are creating an
 // adapter class for our grid view.
@@ -23,15 +26,19 @@ import kotlinx.android.synthetic.main.coin_item.view.*
 
 //https://www.geeksforgeeks.org/android-gridview-in-kotlin/
 internal class CoinGridAdapter(
-    // on below line we are creating two
-    // variables for course list and context
-    private val CoinModelList: ArrayList<Coin>
+    private val CoinModelList: ArrayList<Coin>,private var ListStatusListener:ListStatusListener
 ):RecyclerView.Adapter<CoinGridAdapter.CoinViewHolder>()  {
     //burası alttakilerden oluşan array
 
     //burası ve 3 fonk bir nesne için işlemler
+
+    private var guncelmi=false
     class CoinViewHolder(var itemView:View):RecyclerView.ViewHolder(itemView) {
 
+    }
+
+    public fun setListStatusListener(ListStatusListener:ListStatusListener){
+        this.ListStatusListener=ListStatusListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
@@ -42,14 +49,17 @@ internal class CoinGridAdapter(
 
     //her item için geçerli işlemlerin yapıldığı yer
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
-        holder.itemView.CoinName_tv.text=CoinModelList.get(position).coinName
-        holder.itemView.imageView.gorselIndir(CoinModelList.get(position).iconUrl,
-            placeholderYap(holder.itemView.context))
 
+        holder.itemView.CoinName_tv.text=CoinModelList.get(position).coinName
+        //resimleri bitmap olarak saklayablrmiyiz ?
+        holder.itemView.imageView.gorselIndir(CoinModelList.get(position).iconUrl,placeholderYap(holder.itemView.context))
+        ListStatusListener.setVisible(position)
         holder.itemView.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToCoinInfoFragment(CoinModelList.get(position).uuid)
             Navigation.findNavController(it).navigate(action)
+
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -61,6 +71,9 @@ internal class CoinGridAdapter(
         CoinModelList.addAll(yeniBesinListesi)
         notifyDataSetChanged()
     }
+
+
+    //fun guncellendimi():Boolean { return guncelmi }
 
 }
 

@@ -17,14 +17,14 @@
         android:id="@+id/constraintlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#B18DF1"
+        android:background="#FCFDF2"
         >
 
         <LinearLayout
             android:id="@+id/navbar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#FFC107"
+            android:background="#FFE9B1"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,12 +49,12 @@
                 android:id="@+id/cardview"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                app:cardBackgroundColor="#C5CFA9" />
+                app:cardBackgroundColor="#FFE9B1" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:background="#7242C6"
+            android:background="#7743DB"
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -81,7 +81,7 @@
                 android:text="News"
                 android:textSize="35sp"
                 android:gravity="center"
-                android:background="#3448B8"
+                android:background="#3B3486"
                 android:textColor="@color/white"
                 />
 
@@ -95,7 +95,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_layout"
-            android:background="#FF3448B8">
+            android:background="#3B3486">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview"

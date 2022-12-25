@@ -20,9 +20,6 @@ class CoinInfoFragment : Fragment() {
     private lateinit var viewModel:Coin_infoVM
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
-
 
     }
 
@@ -40,6 +37,7 @@ class CoinInfoFragment : Fragment() {
 
 
         arguments?.let{
+
             id_ =CoinInfoFragmentArgs.fromBundle(it).coinIdArguman
 
         }
@@ -58,6 +56,7 @@ class CoinInfoFragment : Fragment() {
                 CoinName.text=Coin.coinName
                 Price.text=Coin.price
                 context?.let {
+                    //data url dolayısıyla resim her zaman indiriliyor
                     coin_IV.gorselIndir(Coin.iconUrl, placeholderYap(it))
                 }
             }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,14 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crypto_news_app.R
 import com.example.crypto_news_app.VM.CoinListVM
 import com.example.crypto_news_app.adapter.CoinGridAdapter
+import com.example.crypto_news_app.adapter.ListStatusListener
 //import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),ListStatusListener  {
   //  view model ile adapter oluşturduk ve burda tanımladık
     private lateinit var viewmodel:CoinListVM
-    private var Coin_adapter=CoinGridAdapter(arrayListOf())
+    private var Coin_adapter=CoinGridAdapter(arrayListOf(),this)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,29 +49,35 @@ class MainFragment : Fragment() {
         //  ViewModelProviders--->fragment ile vm yyi bağlar
         viewmodel=ViewModelProviders.of(this).get(CoinListVM::class.java)
         viewmodel.refreshData()
-
-
-
         recyclerview.layoutManager= object :GridLayoutManager(context,3){
             override fun canScrollVertically(): Boolean {
                 return false
             } }
 //        recyclerview.setNestedScrollingEnabled(false);
 //        recyclerview.setHasFixedSize(true)
-        recyclerview
         recyclerview.adapter= Coin_adapter
         observeLiveData()
+
     }
     //viewmodeldeki verileri çeker
+
     fun observeLiveData(){
 
         viewmodel.Coinler.observe(viewLifecycleOwner, Observer {
             it?.let{//nullable ile çalışılrsa kullanılması gerekir
-                recyclerview.visibility=View.VISIBLE
+                recyclerview.visibility=View.INVISIBLE
                 Coin_adapter.coinListesiniGuncelle(it)
-
-            }
+               }
         })
+    }
+
+    override fun setVisible(position: Int) {
+        viewmodel.Coinler.observe(viewLifecycleOwner, Observer {
+            it?.let{
+                if(it.size-1==position)
+                recyclerview.visibility=View.VISIBLE
+            }
+    })
     }
 
 }
